@@ -49,5 +49,5 @@ jobs:
           ref: refs/heads/main
           workflow: terraform-apply.yml
           token: ${{ secrets.PAT }}  # Personal Access Token with repo scope
-          repo: richard-cardosodev/projeto-fiap-identicacao-iac-infra
+          repo: richard-cardosodev/projeto-fiap-iac-infra
           #inputs: '{"message": "Triggered from application deployment workflow"}'
