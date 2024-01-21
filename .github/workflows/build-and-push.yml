@@ -43,11 +43,4 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Trigger Infrastructure Deploy Workflow
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          ref: refs/heads/main
-          workflow: terraform-apply.yml
-          token: ${{ secrets.PAT }}  # Personal Access Token with repo scope
-          repo: richard-cardosodev/projeto-fiap-identicacao-iac-infra
-          #inputs: '{"message": "Triggered from application deployment workflow"}'
+      #TODO: apply deployment, hpa and service to kubernetes cluster
