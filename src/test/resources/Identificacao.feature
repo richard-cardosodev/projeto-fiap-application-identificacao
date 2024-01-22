@@ -1,31 +1,31 @@
 # language: pt
 Funcionalidade: Identificação
 
-  Cenário: Criar uma nova identificação
-    Quando submeter uma nova identificação
-    Então a identificação foi registrada com sucesso
+  Cenário: Criar um novo cliente
+    Quando submeter um novo cliente
+    Então o cliente foi registrado com sucesso
 
-  Cenário: Alterar uma identificação existente
-    Dada que uma identificação já foi registrada
-    Quando requisitar a alteração da identificação
-    Então a identificação foi alterada com sucesso
+  Cenário: Alterar um cliente existente
+    Dada que um cliente já foi registrado
+    Quando requisitar a alteração do cliente
+    Então o cliente foi alterado com sucesso
 
-  Cenário: Excluir uma identificação existente
-    Dada que uma identificação já foi registrada
-    Quando requisitar a exclusão da identificação
-    Então a identificação é excluida com sucesso
+  Cenário: Excluir um cliente existente
+    Dada que um cliente já foi registrado
+    Quando requisitar a exclusão do cliente
+    Então o cliente é excluido com sucesso
 
   Cenário: Busca uma identificação existente
-    Dada que uma identificação já foi registrada
-    Quando requisitar a busca da identificação
-    Então a identificação é exibida com sucesso
+    Dada que um cliente já foi registrado
+    Quando requisitar a busca do cliente
+    Então o cliente é exibido com sucesso
 
   Cenário: Busca identificação por cpf
-    Dada que uma identificação já foi registrada
-    Quando requisitar a busca por uma identificação pelo cpf
-    Entao a identificação é exibida com sucesso
+    Dada que um cliente já foi registrado
+    Quando requisitar a busca de um cliente pelo cpf
+    Entao o cliente é exibido com sucesso
 
   Cenário: Lista identificacoes existentes
-    Dada que uma identificação já foi registrada
-    Quando requisitar a lista de identificacoes
-    Então as identificações são exibidas com sucesso
+    Dada que um cliente já foi registrado
+    Quando requisitar a lista de clientes
+    Então os clientes são exibidos com sucesso
