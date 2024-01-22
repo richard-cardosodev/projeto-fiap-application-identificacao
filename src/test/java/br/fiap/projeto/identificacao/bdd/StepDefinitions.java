@@ -121,7 +121,7 @@ public class StepDefinitions {
 
     private ClienteRequestDTO geraClienteRequestDTO() {
         return ClienteRequestDTO.builder()
-                .nome("Mario")
+                .nome("Cliente1")
                 .email(EmailUtil.gerarEmail())
                 .cpf(CPFUtil.gerarCPFSoNumeros())
                 .build();

@@ -1,7 +1,7 @@
 # language: pt
 Funcionalidade: Identificação
 
-  Cenário: Criar um nova identificação
+  Cenário: Criar uma nova identificação
     Quando submeter uma nova identificação
     Então a identificação foi registrada com sucesso
 
