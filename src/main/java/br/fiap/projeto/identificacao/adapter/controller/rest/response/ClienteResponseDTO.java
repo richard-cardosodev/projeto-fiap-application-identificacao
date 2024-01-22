@@ -3,10 +3,12 @@ package br.fiap.projeto.identificacao.adapter.controller.rest.response;
 import br.fiap.projeto.identificacao.entity.Cliente;
 import br.fiap.projeto.identificacao.entity.vo.Cpf;
 import br.fiap.projeto.identificacao.entity.vo.Email;
-import lombok.SneakyThrows;
+import lombok.*;
 
 import java.util.Optional;
 
+@Builder
+@Data
 public class ClienteResponseDTO {
 
     private String codigo;

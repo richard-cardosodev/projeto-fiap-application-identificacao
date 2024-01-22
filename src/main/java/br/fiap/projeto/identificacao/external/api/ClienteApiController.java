@@ -40,8 +40,9 @@ public class ClienteApiController {
     @DeleteMapping("/{codigo}")
     @SneakyThrows
     @ApiOperation(value = "Remove o registro de cliente", notes = "Este endpoint remove o registro de um cliente")
-    public void remove(@PathVariable String codigo) {
+    public ResponseEntity<Void> remove(@PathVariable String codigo) {
         clienteAdapterController.remove(codigo);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{codigo}")
