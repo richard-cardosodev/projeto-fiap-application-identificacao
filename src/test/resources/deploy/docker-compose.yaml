@@ -1,0 +1,20 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: test_db
+      POSTGRES_PASSWORD: DB_PASSWORD_PLACEHOLDER
+    ports:
+      - "5432:5432"
+    restart: always
+  projeto-fiap-identificacao:
+    build: .
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/test_db
+      - SPRING_DATASOURCE_PASSWORD=DB_PASSWORD_PLACEHOLDER
+    ports:
+      - "80:8080"
+    restart: always
+    depends_on:
+      - db
