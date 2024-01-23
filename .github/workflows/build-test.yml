@@ -27,12 +27,10 @@ jobs:
     - name: Run basic tests
       run: mvn test
 
-    - name: Replace DB Password in Docker Compose
-      run: |
-        sed -i 's/DB_PASSWORD_PLACEHOLDER/${{ secrets.DB_PASSWORD }}/g' docker-compose.yml
-
     - name: Runs the database and application
       run: |
+        cd src/test/resources/deploy
+        sed -i 's/DB_PASSWORD_PLACEHOLDER/${{ secrets.DB_PASSWORD }}/g' docker-compose.yml
         docker-compose up -d
 
     - name: Wait for Container to be Live and Monitor Containers
