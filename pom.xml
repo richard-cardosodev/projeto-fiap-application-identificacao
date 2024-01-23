@@ -205,6 +205,15 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<excludes>
+						<exclude>br/fiap/projeto/identificacao/external/config/**</exclude>
+						<exclude>br/fiap/projeto/AplicacaoProjetoFiap*</exclude>
+						<exclude>br/fiap/projeto/util/**</exclude>
+						<exclude>br/fiap/projeto/identificacao/adapter/controller/rest/request</exclude>
+						<exclude>br/fiap/projeto/identificacao/adapter/controller/rest/response</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
