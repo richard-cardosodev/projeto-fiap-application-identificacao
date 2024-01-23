@@ -45,14 +45,14 @@ public class StepDefinitions {
                 .body(matchesJsonSchemaInClasspath("./schemas/ClienteResponseDTOSchema.json"));
     }
 
-    @Dada("que um cliente já foi registrado")
+    @Dada("que um cliente ja foi registrado")
     public void clienteJaFoiRegistrado() {
         submeterUmNovoCliente();
         Assertions.assertEquals(true, Optional.ofNullable(clienteResponseDTO).isPresent());
     }
 
-    @Quando("requisitar a alteração do cliente")
-    public void requisitarAlteracaoDaIdentificação() {
+    @Quando("requisitar a alteracao do cliente")
+    public void requisitarAlteracaoDaIdentificacao() {
         ClienteRequestDTO request = new ClienteRequestDTO(clienteResponseDTO.getNome(), clienteResponseDTO.getCpf(), "marioumc@gmail.com");
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -68,14 +68,14 @@ public class StepDefinitions {
                 .body(matchesJsonSchemaInClasspath("./schemas/ClienteResponseDTOSchema.json"));
     }
 
-    @Quando("requisitar a exclusão do cliente")
+    @Quando("requisitar a exclusao do cliente")
     public void requisitarExclusaoDoCliente() {
         response = given()
                 .when()
                 .delete(ENDPOINT_API + "/{id}", clienteResponseDTO.getCodigo().toString());
     }
 
-    @Então("o cliente é excluido com sucesso")
+    @Então("o cliente eh excluido com sucesso")
     public void clienteExcluidoComSucesso() {
         response.then()
                 .statusCode(HttpStatus.NO_CONTENT.value());
@@ -89,7 +89,7 @@ public class StepDefinitions {
                 .get(ENDPOINT_API + "/{id}", clienteResponseDTO.getCodigo());
     }
 
-    @Então("o cliente é exibido com sucesso")
+    @Então("o cliente eh exibido com sucesso")
     public void clienteExibidoComSucesso() {
         response.then()
                 .statusCode(HttpStatus.OK.value())
@@ -112,7 +112,7 @@ public class StepDefinitions {
                 .get(ENDPOINT_API + "/todos");
     }
 
-    @Então("os clientes são exibidos com sucesso")
+    @Então("os clientes sao exibidos com sucesso")
     public void clientesExibidasComSucesso() {
         response.then()
                 .statusCode(HttpStatus.OK.value())
