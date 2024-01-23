@@ -64,7 +64,7 @@ jobs:
     - name: Run BDD tests
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B verify -P bdd sonar:sonar
+      run: mvn clean verify sonar:sonar -P bdd
 
     - name: Check for coverage report existence
       run: |
