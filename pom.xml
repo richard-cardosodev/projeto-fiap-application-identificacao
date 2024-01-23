@@ -16,6 +16,26 @@
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.10.1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.cucumber</groupId>
+				<artifactId>cucumber-bom</artifactId>
+				<version>7.15.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -31,13 +51,6 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.4.1</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
-			<version>3.1.7</version>
-		</dependency>
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -72,52 +85,30 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Dependências do jUnit -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.8.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.8.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-suite-api</artifactId>
-			<version>1.9.1</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- Fim -->
-
 		<!-- Inserir dependências do cucumber -->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>7.15.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit-platform-engine</artifactId>
-			<version>7.13.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Dependências do jUnit -->
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-junit</artifactId>
-			<version>7.13.0</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<version>4.5.1</version>
-			<scope>test</scope>
-		</dependency>
+		<!-- Fim -->
 
 		<!-- para testar controller de forma mais fluida -->
 		<dependency>
@@ -170,7 +161,6 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.12.5</version>
 		</dependency>
-
 		<!-- Fim das dependências do cucumber -->
 	</dependencies>
 
@@ -180,22 +170,36 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
+				<configuration>
+					<excludes>
+						<exclude>**/CucumberTest.java</exclude>
+					</excludes>
+					<testFailureIgnore>false</testFailureIgnore>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
 	<profiles>
 		<profile>
-			<id>allButIntegrationTests</id>
+			<id>bdd</id>
 			<build>
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.22.2</version>
+						<version>3.2.5</version>
 						<configuration>
-							<excludes>
-								<exclude>**/integracao/*.java</exclude>
+							<includes combine.self="override">
+								<include>**/CucumberTest.java</include>
+							</includes>
+							<excludes combine.self="override">
 							</excludes>
+							<testFailureIgnore>false</testFailureIgnore>
 						</configuration>
 					</plugin>
 				</plugins>
