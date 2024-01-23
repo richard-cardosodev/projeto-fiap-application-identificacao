@@ -21,8 +21,18 @@ jobs:
         distribution: 'adopt'
         java-version: '11'
 
-    - name: Run tests
+    - name: Run basic tests
       run: mvn test
+
+    - name: Run BDD tests
+      run: mvn -B verify -P bdd sonar:sonar -Dsonar.projectKey=${{ secrets.AWS_ACCESS_KEY_ID }} -Dsonar.jacoco.reportPaths=target/site/jacoco/jacoco.xml
+
+    - name: Check for BDD tests failures
+      run: |
+        if grep -q '<error message=' target/surefire-reports/*.xml; then
+          echo "Falha nos testes BDD"
+          exit 1
+        fi
     
     # Maven build
     - name: Build with Maven
