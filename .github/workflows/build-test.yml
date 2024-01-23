@@ -40,19 +40,9 @@ jobs:
         timeout=300
         elapsed=0
         echo "Waiting for container to be live..."
-        db_container_id=$(docker ps --filter name=db -q)
-        app_container_id=$(docker ps --filter name=projeto-fiap-identificacao -q)
-        
-        while ! curl --output /dev/null --silent --head --fail http://localhost:8080/liveness; do
+        while ! curl --head --fail http://localhost:80/liveness; do
           if [ $elapsed -ge $timeout ]; then
             echo "Timed out waiting for container to be live."
-            echo "======================================================"
-            echo "Database Logs:"
-            docker logs $db_container_id --tail 50
-            echo "======================================================"
-            echo "Application Logs:"
-            docker logs $app_container_id --tail 50
-            echo "======================================================"
             exit 1
           fi
           printf '.'
@@ -62,11 +52,8 @@ jobs:
           echo "Current time: $(date)"
           docker ps
           echo "======================================================"
-          echo "Database Logs:"
-          docker logs $db_container_id --tail 50
-          echo "======================================================"
-          echo "Application Logs:"
-          docker logs $app_container_id --tail 50
+          docker logs --tail 50 $(docker ps --filter name=db -q)
+          docker logs --tail 50 $(docker ps --filter name=projeto-fiap-identificacao -q)
           echo "======================================================"
         
           sleep 10
