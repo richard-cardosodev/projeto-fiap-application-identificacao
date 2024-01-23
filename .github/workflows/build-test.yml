@@ -66,6 +66,10 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify -P bdd sonar:sonar
 
+    - name: Check for coverage report existence
+      run: |
+        - ls -l target/site/jacoco/jacoco.xml
+
     - name: Check for BDD tests failures
       run: |
         if grep -q '<error message=' target/surefire-reports/*.xml; then
