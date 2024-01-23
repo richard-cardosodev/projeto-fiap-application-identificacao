@@ -62,7 +62,7 @@ jobs:
         echo "Container is live!"
 
     - name: Run BDD tests
-      run: mvn -B verify -P bdd sonar:sonar -Dsonar.projectKey=${{ secrets.AWS_ACCESS_KEY_ID }} -Dsonar.jacoco.reportPaths=target/site/jacoco/jacoco.xml
+      run: mvn -B verify -P bdd sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=${{ secrets.AWS_ACCESS_KEY_ID }} -Dsonar.jacoco.reportPaths=target/site/jacoco/jacoco.xml
 
     - name: Check for BDD tests failures
       run: |
