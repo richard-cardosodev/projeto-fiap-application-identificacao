@@ -29,6 +29,7 @@ jobs:
 
     - name: Runs the database and application
       run: |
+        docker build . -t projeto-fiap-identificacao
         cd ./src/test/resources/deploy
         ls -l
         sed -i 's/DB_PASSWORD_PLACEHOLDER/${{ secrets.DB_PASSWORD }}/g' docker-compose.yml
@@ -64,11 +65,3 @@ jobs:
           echo "Falha nos testes BDD"
           exit 1
         fi
-    
-    # Maven build
-    - name: Build with Maven
-      run: mvn package
-
-   # Build Docker image
-    - name: Build Docker image
-      run: docker build .
