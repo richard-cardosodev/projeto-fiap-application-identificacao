@@ -32,7 +32,7 @@ jobs:
         docker build . -t projeto-fiap-identificacao
         cd ./src/test/resources/deploy
         ls -l
-        sed -i 's/DB_PASSWORD_PLACEHOLDER/${{ secrets.DB_PASSWORD }}/g' docker-compose.yml
+        sed -i 's/DB_PASSWORD_PLACEHOLDER/${{ secrets.PROJETOFIAP_DB_PASSWORD }}/g' docker-compose.yml
         docker-compose up -d
 
     - name: Wait for Container to be Live and Monitor Containers
