@@ -43,7 +43,7 @@ jobs:
         db_container_id=$(docker ps --filter name=db -q)
         app_container_id=$(docker ps --filter name=projeto-fiap-identificacao -q)
         
-        while ! curl --output /dev/null --silent --head --fail http://localhost:80/liveness; do
+        while ! curl --output /dev/null --silent --head --fail http://localhost:8080/liveness; do
           if [ $elapsed -ge $timeout ]; then
             echo "Timed out waiting for container to be live."
             echo "======================================================"
