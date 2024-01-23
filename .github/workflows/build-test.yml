@@ -40,7 +40,7 @@ jobs:
         timeout=300
         elapsed=0
         echo "Waiting for container to be live..."
-        while ! curl --head --fail http://localhost:8080/liveness; do
+        while ! curl --head --fail http://localhost:8080/identificacao/liveness; do
           if [ $elapsed -ge $timeout ]; then
             echo "Timed out waiting for container to be live."
             exit 1
