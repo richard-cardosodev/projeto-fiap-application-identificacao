@@ -68,7 +68,7 @@ jobs:
 
     - name: Check for coverage report existence
       run: |
-        - ls -l target/site/jacoco/jacoco.xml
+        ls -l target/site/jacoco/jacoco.xml
 
     - name: Check for BDD tests failures
       run: |
