@@ -50,7 +50,10 @@ jobs:
           # Print the current status of Docker containers
           echo "======================================================"
           echo "Current time: $(date)"
-          docker-compose logs
+          docker ps
+          echo "======================================================"
+          docker-compose logs db
+          docker-compose logs projeto-fiap-identificacao
           echo "======================================================"
         
           sleep 10
