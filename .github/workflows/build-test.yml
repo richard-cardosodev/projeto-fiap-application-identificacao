@@ -52,8 +52,7 @@ jobs:
           echo "Current time: $(date)"
           docker ps
           echo "======================================================"
-          docker-compose logs db
-          docker-compose logs projeto-fiap-identificacao
+          docker-compose logs
           echo "======================================================"
         
           sleep 10
