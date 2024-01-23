@@ -15,6 +15,7 @@
 	<description>Projeto de pós-graduação do grupo 2023-Q1-64 - contexto identificação</description>
 	<properties>
 		<java.version>1.8</java.version>
+		<sonar.organization>richard-cardosodev</sonar.organization>
 	</properties>
 
 	<dependencyManagement>
