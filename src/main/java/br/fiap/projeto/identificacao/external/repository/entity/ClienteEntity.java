@@ -3,6 +3,7 @@ package br.fiap.projeto.identificacao.external.repository.entity;
 import br.fiap.projeto.identificacao.entity.Cliente;
 import br.fiap.projeto.identificacao.entity.vo.Cpf;
 import br.fiap.projeto.identificacao.entity.vo.Email;
+import lombok.Getter;
 import lombok.SneakyThrows;
 
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import javax.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
 
 
-@Entity
+@Entity @Getter
 @Table(name = "clientes", uniqueConstraints = @UniqueConstraint(name = "UN_CLIENTE", columnNames = {"codigo"}))
 public class ClienteEntity {
 
@@ -45,26 +46,6 @@ public class ClienteEntity {
     @SneakyThrows
     public Cliente toCliente() {
         return new Cliente(codigo, nome, cpf, email, dataExclusao);
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public LocalDateTime getDataExclusao() {
-        return dataExclusao;
     }
 
 }
