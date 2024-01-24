@@ -23,7 +23,7 @@ public class ClienteIntegrationTest {
     private MockMvc mvc;
 
     @Test
-    public void inserir() throws Exception {
+    public void testeInserir() throws Exception {
 
         mvc.perform(MockMvcRequestBuilders
                         .post("/clientes")
@@ -36,7 +36,22 @@ public class ClienteIntegrationTest {
     }
 
     @Test
-    public void buscaTodos() throws Exception {
+    public void testeInserirCpfInvalido() throws Exception {
+
+        ClienteRequestDTO dto = geraClienteRequestDTO();
+        dto.setCpf("123");
+        mvc.perform(MockMvcRequestBuilders
+                        .post("/clientes")
+                        .content(asJsonString(dto))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().is(HttpStatus.PRECONDITION_FAILED.value()));
+    }
+
+    @Test
+    public void testeBuscaTodos() throws Exception {
 
         mvc.perform(MockMvcRequestBuilders
                 .get("/clientes/todos"))
@@ -44,11 +59,26 @@ public class ClienteIntegrationTest {
     }
 
     @Test
-    public void buscaPorCpf() throws Exception {
+    public void testeBuscaPorCpfInexistente() throws Exception {
 
         mvc.perform(MockMvcRequestBuilders
                 .get("/clientes/cpf")
                 .queryParam("cpf", "00000000000")
+        ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.NOT_FOUND.value()));
+    }
+
+
+    @Test
+    public void testBuscaPorCodigoInexistente() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                .get("/clientes/0000")
+        ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.NOT_FOUND.value()));
+    }
+
+    @Test
+    public void testRemoverInexistente() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                .delete("/clientes/0000")
         ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.NOT_FOUND.value()));
     }
 
