@@ -110,4 +110,5 @@ public class ClienteRestAdapterControllerTest {
     assertNotNull(clienteResponseDTO);
     assertEquals("Nome", clienteResponseDTO.getNome());
     }
+
 }
