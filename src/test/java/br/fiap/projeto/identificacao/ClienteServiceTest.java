@@ -1,5 +1,15 @@
 package br.fiap.projeto.identificacao;
 
+import br.fiap.projeto.identificacao.entity.Cliente;
+import br.fiap.projeto.identificacao.usecase.GestaoClienteUseCase;
+import br.fiap.projeto.identificacao.usecase.exception.EntidadeNaoEncontradaException;
+import br.fiap.projeto.identificacao.usecase.exception.EntradaInvalidaException;
+import br.fiap.projeto.identificacao.usecase.port.IClienteRepositoryAdapterGateway;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -8,17 +18,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import java.util.Optional;
-
-import br.fiap.projeto.identificacao.usecase.GestaoClienteUseCase;
-import br.fiap.projeto.identificacao.usecase.exception.EntidadeNaoEncontradaException;
-import br.fiap.projeto.identificacao.usecase.exception.EntradaInvalidaException;
-import br.fiap.projeto.identificacao.usecase.port.IClienteRepositoryAdapterGateway;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import br.fiap.projeto.identificacao.entity.Cliente;
 
 class ClienteServiceTest {
 
@@ -32,7 +31,7 @@ class ClienteServiceTest {
     }
 
     @Test
-    void insereClienteComCpfEDuplicado() throws EntradaInvalidaException, EntidadeNaoEncontradaException {
+    void insereClienteComCpfEDuplicado() throws EntradaInvalidaException {
       
         when(clienteRepositoryAdapterGateway.buscaPorCpf(anyString())).thenReturn(Optional.of(new Cliente("codigo1", "Nome", "21618131885", "email@email.com.br")));
 
@@ -44,7 +43,7 @@ class ClienteServiceTest {
     }
 
     @Test
-    void insereClienteComEmailDuplicado() throws EntradaInvalidaException, EntidadeNaoEncontradaException {
+    void insereClienteComEmailDuplicado() throws EntradaInvalidaException {
         // Simular o cenário onde o cliente com o mesmo e-mail já existe
         when(clienteRepositoryAdapterGateway.buscaPorCpf(anyString())).thenReturn(Optional.empty());
         when(clienteRepositoryAdapterGateway.buscaPorEmail(anyString())).thenReturn(Optional.of(new Cliente("codigo1", "Nome", "21618131885", "email@email.com")));
@@ -70,16 +69,18 @@ class ClienteServiceTest {
     }
 
     @Test
-    void editaClienteComCodigoAusente() throws EntradaInvalidaException, EntidadeNaoEncontradaException {
+    void editaClienteComCodigoAusente() throws EntradaInvalidaException {
         // Simular o cenário onde o código do cliente está ausente
 
+        Cliente clienteParaEditar = new Cliente(null, "Novo Nome", "51757125868", "novoemail@email.com.br");
+
         assertThrows(EntradaInvalidaException.class, () -> {
-            gestaoClienteUseCase.edita(new Cliente(null, "Novo Nome", "51757125868", "novoemail@email.com.br"));
+            gestaoClienteUseCase.edita(clienteParaEditar);
         });
     }
 
     @Test
-    void editaClienteInexistente() throws EntradaInvalidaException, EntidadeNaoEncontradaException {
+    void editaClienteInexistente() throws EntradaInvalidaException {
         // Simular o cenário onde o cliente não existe
         when(clienteRepositoryAdapterGateway.busca(anyString())).thenReturn(Optional.empty());
 
@@ -103,7 +104,7 @@ class ClienteServiceTest {
     }
 
     @Test
-    void removeClienteComCodigoAusente() throws EntradaInvalidaException, EntidadeNaoEncontradaException {
+    void removeClienteComCodigoAusente() {
         // Simular o cenário onde o código do cliente está ausente
         assertThrows(EntidadeNaoEncontradaException.class, () -> {
             gestaoClienteUseCase.remove(null);
@@ -111,7 +112,7 @@ class ClienteServiceTest {
     }
 
     @Test
-    void removeClienteInexistente() throws EntidadeNaoEncontradaException, EntradaInvalidaException {
+    void removeClienteInexistente() {
         // Simular o cenário onde o cliente não existe
         when(clienteRepositoryAdapterGateway.buscaPorCodigoEDataExclusaoNula(anyString())).thenReturn(Optional.empty());
 
@@ -121,7 +122,7 @@ class ClienteServiceTest {
     }
 
     @Test
-    void removeClienteComSucesso() throws EntidadeNaoEncontradaException, EntradaInvalidaException {
+    void removeClienteComSucesso() throws EntradaInvalidaException {
         // Simular o cenário onde o cliente existe
         when(clienteRepositoryAdapterGateway.buscaPorCodigoEDataExclusaoNula(anyString())).thenReturn(Optional.of(new Cliente("123", "Novo Nome", "51757125868", "novoemail@email.com.br")));
 
@@ -131,7 +132,7 @@ class ClienteServiceTest {
     }
 
     @Test
-    void buscaClienteComCodigoAusente() throws EntradaInvalidaException, EntidadeNaoEncontradaException {
+    void buscaClienteComCodigoAusente() {
         // Simular o cenário onde o código do cliente está ausente
         assertThrows(EntradaInvalidaException.class, () -> {
             gestaoClienteUseCase.busca(null);
@@ -139,7 +140,7 @@ class ClienteServiceTest {
     }
 
     @Test
-    void buscaClienteInexistente() throws EntradaInvalidaException, EntidadeNaoEncontradaException {
+    void buscaClienteInexistente() {
         // Simular o cenário onde o cliente não existe
         when(clienteRepositoryAdapterGateway.busca(anyString())).thenReturn(Optional.empty());
 
