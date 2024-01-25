@@ -14,7 +14,7 @@ public class Email {
     }
 
     public void validar() throws EntradaInvalidaException {
-        if (Pattern.matches("\\w+@\\w+\\.\\w+[\\.\\w*]*", endereco)) {
+        if (Pattern.matches("\\w{1,100}@\\w{1,100}\\.\\w{1,10}(\\.\\w{1,10})*\n", endereco)) {
             return;
         }
         throw new EntradaInvalidaException(EMAIL_INVALIDO);
