@@ -1,10 +1,10 @@
 package br.fiap.projeto.util;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class CPFUtil {
 
-    private static final Random RANDOM = new Random();
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     private CPFUtil() {
 

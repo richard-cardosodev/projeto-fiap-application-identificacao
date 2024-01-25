@@ -1,12 +1,12 @@
 package br.fiap.projeto.util;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class EmailUtil {
 
     private static final String[] DOMINIOS = {"gmail.com", "yahoo.com", "hotmail.com", "example.com"};
 
-    private static final Random RANDOM = new Random();
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     private EmailUtil() {
 
