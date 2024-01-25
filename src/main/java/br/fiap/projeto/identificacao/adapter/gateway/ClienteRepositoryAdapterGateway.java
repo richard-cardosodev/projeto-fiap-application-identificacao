@@ -4,12 +4,16 @@ import br.fiap.projeto.identificacao.entity.Cliente;
 import br.fiap.projeto.identificacao.external.repository.entity.ClienteEntity;
 import br.fiap.projeto.identificacao.external.repository.postgres.SpringClienteRepository;
 import br.fiap.projeto.identificacao.usecase.port.IClienteRepositoryAdapterGateway;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ClienteRepositoryAdapterGateway implements IClienteRepositoryAdapterGateway {
+
+    private static final Logger log = LoggerFactory.getLogger(ClienteRepositoryAdapterGateway.class);
 
     private final SpringClienteRepository springClienteRepository;
 
@@ -26,9 +30,8 @@ public class ClienteRepositoryAdapterGateway implements IClienteRepositoryAdapte
 
     @Override
     public Cliente atualiza(Cliente cliente) {
-        ClienteEntity clienteEntity = ClienteEntity.fromCliente(cliente);
-        clienteEntity = springClienteRepository.save(clienteEntity);
-        return clienteEntity.toCliente();
+        log.info("Atualizando {}", cliente);
+        return insere(cliente);
     }
 
     @Override

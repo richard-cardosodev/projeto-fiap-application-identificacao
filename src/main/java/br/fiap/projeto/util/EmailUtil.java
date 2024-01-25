@@ -4,9 +4,13 @@ import java.util.Random;
 
 public class EmailUtil {
 
-    private final static String[] DOMINIOS = {"gmail.com", "yahoo.com", "hotmail.com", "example.com"};
+    private static final String[] DOMINIOS = {"gmail.com", "yahoo.com", "hotmail.com", "example.com"};
 
-    private final static Random RANDOM = new Random();
+    private static final Random RANDOM = new Random();
+
+    private EmailUtil() {
+
+    }
 
     public static String gerarEmail() {
 

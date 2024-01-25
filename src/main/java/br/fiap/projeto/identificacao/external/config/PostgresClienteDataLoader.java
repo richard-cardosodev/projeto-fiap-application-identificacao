@@ -2,6 +2,7 @@ package br.fiap.projeto.identificacao.external.config;
 
 import br.fiap.projeto.identificacao.entity.Cliente;
 import br.fiap.projeto.identificacao.usecase.port.IClienteRepositoryAdapterGateway;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +12,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-@Configuration
+@Configuration @RequiredArgsConstructor
 public class PostgresClienteDataLoader {
 
-    @Autowired
-    private IClienteRepositoryAdapterGateway clienteRepository;
+    private final IClienteRepositoryAdapterGateway clienteRepository;
 
     @PostConstruct
     @SneakyThrows

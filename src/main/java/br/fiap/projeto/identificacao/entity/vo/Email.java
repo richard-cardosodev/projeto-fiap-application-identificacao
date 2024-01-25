@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class Email {
 
-    public final static String EMAIL_INVALIDO = "E-mail inválido!";
+    public static final String EMAIL_INVALIDO = "E-mail inválido!";
     private final String endereco;
 
     public Email(String endereco) {

@@ -33,7 +33,7 @@ public class ClienteRestAdapterControllerTest {
     }
 
     @Test
-    public void insereClienteComSucesso() throws EntradaInvalidaException, EntidadeNaoEncontradaException {
+    void insereClienteComSucesso() throws EntradaInvalidaException, EntidadeNaoEncontradaException {
         // Simular a chamada ao caso de uso que insere um cliente
         when(gestaoClienteUsecase.insere(any(Cliente.class))).thenReturn(new Cliente(UUID.randomUUID().toString(), "Nome", "51757125868", "email@example.com"));
 
@@ -45,7 +45,7 @@ public class ClienteRestAdapterControllerTest {
     }
 
     @Test
-    public void atualizaClienteComSucesso() throws EntradaInvalidaException,
+    void atualizaClienteComSucesso() throws EntradaInvalidaException,
     EntidadeNaoEncontradaException {
     // Simular a chamada ao caso de uso que atualiza um cliente
     when(gestaoClienteUsecase.edita(any(Cliente.class))).thenReturn(new

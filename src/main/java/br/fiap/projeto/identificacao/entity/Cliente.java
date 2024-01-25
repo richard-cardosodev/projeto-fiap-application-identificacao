@@ -8,14 +8,14 @@ import java.time.LocalDateTime;
 
 public class Cliente {
 
-    public final static String CPF_AUSENTE = "Informe o cpf!";
-    public final static String EMAIL_AUSENTE = "Informe o e-mail!";
-    public final static String NOME_AUSENTE = "Informe o nome!";
-    public final static String ENTIDADE_NAO_ENCONTRADA = "Cliente não encontrado!";
-    public final static String CPF_DUPLICADO = "Esse cpf já está cadastrado!";
-    public final static String EMAIL_DUPLICADO = "Esse e-mail já está cadastrado!";
-    public final static String CODIGO_AUSENTE = "Informe o código do cliente!";
-    public final static String USUARIO_JA_EXCLUIDO = "Este cliente já está excluido! Não foi possível atualiza-lo.";
+    public static final String CPF_AUSENTE = "Informe o cpf!";
+    public static final String EMAIL_AUSENTE = "Informe o e-mail!";
+    public static final String NOME_AUSENTE = "Informe o nome!";
+    public static final String ENTIDADE_NAO_ENCONTRADA = "Cliente não encontrado!";
+    public static final String CPF_DUPLICADO = "Esse cpf já está cadastrado!";
+    public static final String EMAIL_DUPLICADO = "Esse e-mail já está cadastrado!";
+    public static final String CODIGO_AUSENTE = "Informe o código do cliente!";
+    public static final String USUARIO_JA_EXCLUIDO = "Este cliente já está excluido! Não foi possível atualiza-lo.";
     private final String nome;
     private final Cpf cpf;
     private final Email email;

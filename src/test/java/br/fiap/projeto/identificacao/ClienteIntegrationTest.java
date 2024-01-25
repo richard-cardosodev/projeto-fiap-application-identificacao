@@ -23,7 +23,7 @@ public class ClienteIntegrationTest {
     private MockMvc mvc;
 
     @Test
-    public void testeInserir() throws Exception {
+    void testeInserir() throws Exception {
 
         mvc.perform(MockMvcRequestBuilders
                         .post("/clientes")
@@ -36,7 +36,7 @@ public class ClienteIntegrationTest {
     }
 
     @Test
-    public void testeInserirCpfInvalido() throws Exception {
+    void testeInserirCpfInvalido() throws Exception {
 
         ClienteRequestDTO dto = geraClienteRequestDTO();
         dto.setCpf("123");
@@ -51,7 +51,7 @@ public class ClienteIntegrationTest {
     }
 
     @Test
-    public void testeBuscaTodos() throws Exception {
+    void testeBuscaTodos() throws Exception {
 
         mvc.perform(MockMvcRequestBuilders
                 .get("/clientes/todos"))
@@ -59,7 +59,7 @@ public class ClienteIntegrationTest {
     }
 
     @Test
-    public void testeBuscaPorCpfInexistente() throws Exception {
+    void testeBuscaPorCpfInexistente() throws Exception {
 
         mvc.perform(MockMvcRequestBuilders
                 .get("/clientes/cpf")
@@ -69,14 +69,14 @@ public class ClienteIntegrationTest {
 
 
     @Test
-    public void testBuscaPorCodigoInexistente() throws Exception {
+    void testBuscaPorCodigoInexistente() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                 .get("/clientes/0000")
         ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.NOT_FOUND.value()));
     }
 
     @Test
-    public void testRemoverInexistente() throws Exception {
+    void testRemoverInexistente() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                 .delete("/clientes/0000")
         ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.NOT_FOUND.value()));
@@ -90,7 +90,7 @@ public class ClienteIntegrationTest {
                 .build();
     }
 
-    public static String asJsonString(final Object obj) {
+    private static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
         } catch (Exception e) {

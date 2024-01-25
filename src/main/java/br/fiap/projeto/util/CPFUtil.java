@@ -4,7 +4,11 @@ import java.util.Random;
 
 public class CPFUtil {
 
-    private final static Random RANDOM = new Random();
+    private static final Random RANDOM = new Random();
+
+    private CPFUtil() {
+
+    }
 
     public static String gerarCPF() {
 

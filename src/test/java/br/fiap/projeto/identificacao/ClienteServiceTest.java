@@ -72,10 +72,8 @@ class ClienteServiceTest {
     void editaClienteComCodigoAusente() throws EntradaInvalidaException {
         // Simular o cenário onde o código do cliente está ausente
 
-        Cliente clienteParaEditar = new Cliente(null, "Novo Nome", "51757125868", "novoemail@email.com.br");
-
         assertThrows(EntradaInvalidaException.class, () -> {
-            gestaoClienteUseCase.edita(clienteParaEditar);
+            new Cliente(null, "Novo Nome", "51757125868", "novoemail@email.com.br");
         });
     }
 

@@ -5,6 +5,7 @@ import br.fiap.projeto.identificacao.adapter.controller.rest.request.ClienteRequ
 import br.fiap.projeto.identificacao.adapter.controller.rest.response.ClienteResponseDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
+@RequiredArgsConstructor
 @Log4j2
-@Api(tags = {"Identificação"}, description = "Endpoints do domínio de Identificação")
+@Api(tags = {"Identificação"})
 public class ClienteApiController {
 
-    @Autowired
-    private IClienteRestAdapterController clienteAdapterController;
+    private final IClienteRestAdapterController clienteAdapterController;
 
     @PostMapping
     @SneakyThrows
