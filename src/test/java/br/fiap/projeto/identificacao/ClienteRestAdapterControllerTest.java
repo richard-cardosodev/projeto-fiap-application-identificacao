@@ -21,7 +21,7 @@ import br.fiap.projeto.identificacao.usecase.port.IGestaoClienteUsecase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ClienteRestAdapterControllerTest {
+class ClienteRestAdapterControllerTest {
 
     private IGestaoClienteUsecase gestaoClienteUsecase;
     private ClienteRestAdapterController clienteRestAdapterController;

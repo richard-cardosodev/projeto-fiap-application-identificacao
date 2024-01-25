@@ -11,7 +11,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ClienteValidacoesTest {
+class ClienteValidacoesTest {
 
     @Test
     void testeCpfInvalido() {
