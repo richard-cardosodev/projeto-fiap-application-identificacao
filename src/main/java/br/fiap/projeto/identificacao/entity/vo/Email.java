@@ -6,26 +6,27 @@ import java.util.regex.Pattern;
 
 public class Email {
 
+    private static final String PATTERN = "\\w{1,100}@\\w{1,100}\\.\\w{1,50}(\\.\\w{1,50})*";
     public static final String EMAIL_INVALIDO = "E-mail inválido!";
-    private final String endereco;
+    private final String email;
 
-    public Email(String endereco) {
-        this.endereco = endereco;
+    public Email(String email) {
+        this.email = email;
     }
 
     public void validar() throws EntradaInvalidaException {
-        if (Pattern.matches("\\w{1,100}@\\w{1,100}\\.\\w{1,10}(\\.\\w{1,10})*\n", endereco)) {
+        if (Pattern.matches(PATTERN, email)) {
             return;
         }
-        throw new EntradaInvalidaException(EMAIL_INVALIDO);
+        throw new EntradaInvalidaException(String.format("%s(%s)", EMAIL_INVALIDO, email));
     }
 
-    public static Email fromString(String endereco) {
-        return new Email(endereco);
+    public static Email fromString(String email) {
+        return new Email(email);
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getEmail() {
+        return email;
     }
 }
 
