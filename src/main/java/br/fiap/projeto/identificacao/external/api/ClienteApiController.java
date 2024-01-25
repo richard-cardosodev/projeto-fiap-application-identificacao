@@ -5,23 +5,31 @@ import br.fiap.projeto.identificacao.adapter.controller.rest.request.ClienteRequ
 import br.fiap.projeto.identificacao.adapter.controller.rest.response.ClienteResponseDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
+@RequiredArgsConstructor
 @Log4j2
-@Api(tags = {"Identificação"}, description = "Endpoints do domínio de Identificação")
+@Api(tags = {"Identificação"})
 public class ClienteApiController {
 
-    @Autowired
-    private IClienteRestAdapterController clienteAdapterController;
+    private final IClienteRestAdapterController clienteAdapterController;
 
     @PostMapping
     @SneakyThrows

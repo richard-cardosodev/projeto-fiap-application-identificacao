@@ -55,7 +55,9 @@ public class GestaoClienteUseCase implements IGestaoClienteUsecase {
     @Override
     public void remove(String codigo) throws EntidadeNaoEncontradaException, EntradaInvalidaException {
         Optional<Cliente> cliente = this.clienteRepositoryAdapterGateway.buscaPorCodigoEDataExclusaoNula(codigo);
-        cliente.orElseThrow(() -> new EntidadeNaoEncontradaException("Cliente não encontrado!"));
+        if (!cliente.isPresent()) {
+            throw new EntidadeNaoEncontradaException("Cliente não encontrado!");
+        }
         cliente.get().adicionaDataDeExclusao();
         clienteRepositoryAdapterGateway.remove(cliente.get());
     }
@@ -67,7 +69,9 @@ public class GestaoClienteUseCase implements IGestaoClienteUsecase {
         }
 
         Optional<Cliente> cliente = clienteRepositoryAdapterGateway.busca(codigo);
-        cliente.orElseThrow(() -> new EntidadeNaoEncontradaException("Cliente não encontrado!"));
+        if (!cliente.isPresent()) {
+            throw new EntidadeNaoEncontradaException("Cliente não encontrado!");
+        }
         return cliente.get();
     }
 
@@ -79,7 +83,9 @@ public class GestaoClienteUseCase implements IGestaoClienteUsecase {
     @Override
     public Cliente buscaPorCpf(String cpf) throws EntidadeNaoEncontradaException {
         Optional<Cliente> clienteEncontrado = clienteRepositoryAdapterGateway.buscaPorCpf(cpf);
-        clienteEncontrado.orElseThrow(() -> new EntidadeNaoEncontradaException(ENTIDADE_NAO_ENCONTRADA));
+        if (!clienteEncontrado.isPresent()) {
+            throw new EntidadeNaoEncontradaException(ENTIDADE_NAO_ENCONTRADA);
+        }
         return clienteEncontrado.get();
     }
 }

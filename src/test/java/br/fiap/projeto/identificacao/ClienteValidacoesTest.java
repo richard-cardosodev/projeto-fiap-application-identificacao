@@ -11,10 +11,10 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ClienteValidacoesTest {
+class ClienteValidacoesTest {
 
     @Test
-    public void testeCpfInvalido() {
+    void testeCpfInvalido() {
 
         Assertions.assertThrows(
                 EntradaInvalidaException.class,
@@ -23,7 +23,7 @@ public class ClienteValidacoesTest {
     }
 
     @Test
-    public void testeEmailInvalido() {
+    void testeEmailInvalido() {
 
         assertThrows(
                 EntradaInvalidaException.class,
@@ -32,7 +32,7 @@ public class ClienteValidacoesTest {
     }
 
     @Test
-    public void testeCodigoAusente() {
+    void testeCodigoAusente() {
 
         assertThrows(
                 EntradaInvalidaException.class,
@@ -41,7 +41,7 @@ public class ClienteValidacoesTest {
     }
 
     @Test
-    public void testeNomeAusente() {
+    void testeNomeAusente() {
 
         assertThrows(
                 EntradaInvalidaException.class,
@@ -50,7 +50,7 @@ public class ClienteValidacoesTest {
     }
 
     @Test
-    public void testeEmailAusente() {
+    void testeEmailAusente() {
 
         assertThrows(
                 EntradaInvalidaException.class,
@@ -59,7 +59,7 @@ public class ClienteValidacoesTest {
     }
 
     @Test
-    public void testeCpfAusente() {
+    void testeCpfAusente() {
 
         assertThrows(
                 EntradaInvalidaException.class,

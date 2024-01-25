@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class Cpf {
 
-    public final static String CPF_INVALIDO = "Cpf inválido!";
+    public static final String CPF_INVALIDO = "Cpf inválido!";
     private final String numero;
 
     public Cpf(String numero) {

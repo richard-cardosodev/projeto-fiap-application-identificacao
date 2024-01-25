@@ -1,21 +1,27 @@
 package br.fiap.projeto.util;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class CPFUtil {
+
+    private static final SecureRandom RANDOM = new SecureRandom();
+
+    private CPFUtil() {
+
+    }
+
     public static String gerarCPF() {
-        Random random = new Random();
 
         // Gera os nove primeiros dígitos do CPF
-        int num1 = random.nextInt(10);
-        int num2 = random.nextInt(10);
-        int num3 = random.nextInt(10);
-        int num4 = random.nextInt(10);
-        int num5 = random.nextInt(10);
-        int num6 = random.nextInt(10);
-        int num7 = random.nextInt(10);
-        int num8 = random.nextInt(10);
-        int num9 = random.nextInt(10);
+        int num1 = RANDOM.nextInt(10);
+        int num2 = RANDOM.nextInt(10);
+        int num3 = RANDOM.nextInt(10);
+        int num4 = RANDOM.nextInt(10);
+        int num5 = RANDOM.nextInt(10);
+        int num6 = RANDOM.nextInt(10);
+        int num7 = RANDOM.nextInt(10);
+        int num8 = RANDOM.nextInt(10);
+        int num9 = RANDOM.nextInt(10);
 
         // Calcula o primeiro dígito verificador
         int digito1 = calculaDigitoVerificador(num1, num2, num3, num4, num5, num6, num7, num8, num9);
