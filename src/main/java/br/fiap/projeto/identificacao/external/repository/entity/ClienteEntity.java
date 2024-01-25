@@ -36,7 +36,7 @@ public class ClienteEntity {
     }
 
     public ClienteEntity(String codigo, String nome, Cpf cpf, Email email, LocalDateTime dataExclusao) {
-        this(codigo, nome, cpf.getNumero(), email.getEndereco(), dataExclusao);
+        this(codigo, nome, cpf.getNumero(), email.getEmail(), dataExclusao);
     }
 
     public static ClienteEntity fromCliente(Cliente cliente) {
