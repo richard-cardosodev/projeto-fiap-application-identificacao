@@ -32,7 +32,7 @@ public class ClienteResponseDTO {
                 cliente.getCodigo(),
                 cliente.getNome(),
                 Optional.ofNullable(cliente.getCpf()).map(Cpf::getNumero).orElse(null),
-                Optional.ofNullable(cliente.getEmail()).map(Email::getEmail).orElse(null)
+                Optional.ofNullable(cliente.getEmail()).map(Email::getEndereco).orElse(null)
         );
     }
 
