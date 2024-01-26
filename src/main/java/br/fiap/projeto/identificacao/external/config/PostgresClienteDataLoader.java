@@ -5,7 +5,6 @@ import br.fiap.projeto.identificacao.usecase.port.IClienteRepositoryAdapterGatew
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
