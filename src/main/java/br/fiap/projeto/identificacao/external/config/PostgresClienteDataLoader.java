@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Configuration @RequiredArgsConstructor
-@Profile("postgre")
 public class PostgresClienteDataLoader {
 
     private final IClienteRepositoryAdapterGateway clienteRepository;
