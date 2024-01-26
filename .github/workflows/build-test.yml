@@ -58,9 +58,11 @@ jobs:
         SPRING_PROFILES_ACTIVE: postgre
       run: mvn clean test
 
-    - name: Run mongodb postgres tests
+    - name: Run mongodb tests
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SPRING_DATASOURCE_USERNAME: postgres
+        SPRING_DATASOURCE_PASSWORD: ${{ secrets.PROJETOFIAP_DB_PASSWORD }}
         SPRING_DATA_MONGODB_HOST: mongodb
         SPRING_DATA_MONGODB_USERNAME: root
         SPRING_DATA_MONGODB_PASSWORD: ${{ secrets.PROJETOFIAP_DB_PASSWORD }}
