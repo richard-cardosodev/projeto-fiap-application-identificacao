@@ -21,58 +21,49 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Folder content debug
-      run: ls -l
-
-    - name: Run basic tests
-      run: mvn test
-
-    - name: Runs the database and application
+    - name: Set up the database
+      env:
+        DB_PASSWORD_PLACEHOLDER: ${{ secrets.PROJETOFIAP_DB_PASSWORD }}
       run: |
-        docker build . -t projeto-fiap-identificacao
         cd ./src/test/resources/deploy
-        ls -l
-        sed -i 's/DB_PASSWORD_PLACEHOLDER/${{ secrets.PROJETOFIAP_DB_PASSWORD }}/g' docker-compose.yml
         docker-compose up -d
 
-    - name: Wait for Container to be Live and Monitor Containers
+    - name: Wait for PostgreSQL Container to be Live and Ready
       run: |
         timeout=300
         elapsed=0
-        echo "Waiting for container to be live..."
-        while ! curl --head --fail http://localhost:8080/identificacao/liveness; do
+        echo "Waiting for PostgreSQL container to be live and ready..."
+        while ! docker exec $(docker ps --filter name=db -q) pg_isready -h localhost -p 5432; do
           if [ $elapsed -ge $timeout ]; then
-            echo "Timed out waiting for container to be live."
+            echo "Timed out waiting for PostgreSQL container to be live and ready."
+            docker logs $(docker ps --filter name=db -q)
             exit 1
           fi
           printf '.'
         
-          # Print the current status of Docker containers
           echo "======================================================"
           echo "Current time: $(date)"
           docker ps
           echo "======================================================"
-          docker logs --tail 50 $(docker ps --filter name=db -q)
-          docker logs --tail 50 $(docker ps --filter name=projeto-fiap-identificacao -q)
-          echo "======================================================"
         
-          sleep 10
-          elapsed=$((elapsed + 10))
+          sleep 5
+          elapsed=$((elapsed + 5))
         done
-        echo "Container is live!"
+        echo "PostgreSQL container is live and ready!"
 
-    - name: Run BDD tests
+    - name: Run tests
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn clean verify sonar:sonar -P bdd
+        SPRING_DATASOURCE_PASSWORD: ${{ secrets.PROJETOFIAP_DB_PASSWORD }}
+      run: mvn clean verify sonar:sonar
 
-    - name: Check for coverage report existence
-      run: |
-        ls -l target/site/jacoco/jacoco.xml
-
-    - name: Check for BDD tests failures
+    - name: Check for tests failures
       run: |
         if grep -q '<error message=' target/surefire-reports/*.xml; then
-          echo "Falha nos testes BDD"
+          echo "Falha nos testes"
           exit 1
         fi
+
+      # Build Docker image
+    - name: Build Docker image
+      run: docker build .

@@ -6,7 +6,9 @@ import java.util.regex.Pattern;
 
 public class Email {
 
-    public final static String EMAIL_INVALIDO = "E-mail inválido!";
+    private static final String PATTERN = "\\w{1,100}@\\w{1,100}\\.\\w{1,50}(?:\\.\\w{1,50})*+";
+
+    public static final String EMAIL_INVALIDO = "E-mail inválido!";
     private final String endereco;
 
     public Email(String endereco) {
@@ -14,10 +16,10 @@ public class Email {
     }
 
     public void validar() throws EntradaInvalidaException {
-        if (Pattern.matches("\\w+@\\w+\\.\\w+[\\.\\w*]*", endereco)) {
+        if (Pattern.matches(PATTERN, endereco)) {
             return;
         }
-        throw new EntradaInvalidaException(EMAIL_INVALIDO);
+        throw new EntradaInvalidaException(String.format("%s(%s)", EMAIL_INVALIDO, endereco));
     }
 
     public static Email fromString(String endereco) {

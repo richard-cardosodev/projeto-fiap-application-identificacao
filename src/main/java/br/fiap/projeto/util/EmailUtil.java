@@ -1,19 +1,24 @@
 package br.fiap.projeto.util;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class EmailUtil {
 
     private static final String[] DOMINIOS = {"gmail.com", "yahoo.com", "hotmail.com", "example.com"};
 
+    private static final SecureRandom RANDOM = new SecureRandom();
+
+    private EmailUtil() {
+
+    }
+
     public static String gerarEmail() {
-        Random random = new Random();
 
         // Gera um nome de usuário aleatório
         String usuario = gerarUsuarioAleatorio();
 
         // Escolhe aleatoriamente um domínio da lista de domínios predefinidos
-        String dominio = DOMINIOS[random.nextInt(DOMINIOS.length)];
+        String dominio = DOMINIOS[RANDOM.nextInt(DOMINIOS.length)];
 
         // Retorna o e-mail gerado
         return usuario + "@" + dominio;
@@ -26,9 +31,9 @@ public class EmailUtil {
         StringBuilder usuario = new StringBuilder();
 
         // Gera um nome de usuário aleatório com comprimento entre 6 e 12 caracteres
-        int comprimentoUsuario = 6 + new Random().nextInt(7);
+        int comprimentoUsuario = 6 + RANDOM.nextInt(7);
         for (int i = 0; i < comprimentoUsuario; i++) {
-            int indiceCaractere = new Random().nextInt(caracteres.length());
+            int indiceCaractere = RANDOM.nextInt(caracteres.length());
             usuario.append(caracteres.charAt(indiceCaractere));
         }
 

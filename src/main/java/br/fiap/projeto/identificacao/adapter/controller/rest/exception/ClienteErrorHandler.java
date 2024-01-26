@@ -16,14 +16,12 @@ public class ClienteErrorHandler {
 
     @ExceptionHandler({EntidadeNaoEncontradaException.class})
     public ResponseEntity<MensagemErroDTO> entidadeNaoEncontradaHandler(EntidadeNaoEncontradaException ex) {
-        ResponseEntity<MensagemErroDTO> erro = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemErroDTO(ex.getCode(), ex.getMessage()));
-        return erro;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemErroDTO(ex.getCode(), ex.getMessage()));
     }
 
     @ExceptionHandler({EntradaInvalidaException.class})
     public ResponseEntity<MensagemErroDTO> entradaInvalidaHandler(EntradaInvalidaException ex) {
-        ResponseEntity<MensagemErroDTO> erro = ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(new MensagemErroDTO(ex.getCode(), ex.getMessage()));
-        return erro;
+        return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(new MensagemErroDTO(ex.getCode(), ex.getMessage()));
     }
 
     @ExceptionHandler({Exception.class})
