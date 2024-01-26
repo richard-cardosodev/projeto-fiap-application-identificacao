@@ -59,6 +59,9 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SPRING_DATASOURCE_USERNAME: postgres
         SPRING_DATASOURCE_PASSWORD: ${{ secrets.PROJETOFIAP_DB_PASSWORD }}
+        SPRING_DATA_MONGODB_HOST: localhost
+        SPRING_DATA_MONGODB_USERNAME: root
+        SPRING_DATA_MONGODB_PASSWORD: ${{ secrets.PROJETOFIAP_DB_PASSWORD }}
         SPRING_PROFILES_ACTIVE: postgre
       run: mvn clean verify sonar:sonar
 
