@@ -51,10 +51,43 @@ jobs:
         done
         echo "PostgreSQL container is live and ready!"
 
-    - name: Run tests
+    - name: Wait for MongoDB Container to be Live and Ready
+      run: |
+        timeout=300
+        elapsed=0
+        echo "Waiting for MongoDB container to be live and ready..."
+        while ! docker exec $(docker ps --filter name=mongo -q) mongo --eval "db.stats()" > /dev/null 2>&1; do
+          if [ $elapsed -ge $timeout ]; then
+            echo "Timed out waiting for MongoDB container to be live and ready."
+            docker logs $(docker ps --filter name=mongo -q)
+            exit 1
+          fi
+          printf '.'
+        
+          echo "======================================================"
+          echo "Current time: $(date)"
+          docker ps
+          echo "======================================================"
+        
+          sleep 5
+          elapsed=$((elapsed + 5))
+        done
+        echo "MongoDB container is live and ready!"
+
+    - name: Run postgres tests
+      env:
+        SPRING_DATASOURCE_USERNAME: postgres
+        SPRING_DATASOURCE_PASSWORD: ${{ secrets.PROJETOFIAP_DB_PASSWORD }}
+        SPRING_PROFILES_ACTIVE: postgre
+      run: mvn clean test
+
+    - name: Run mongodb postgres tests
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SPRING_DATASOURCE_PASSWORD: ${{ secrets.PROJETOFIAP_DB_PASSWORD }}
+        SPRING_DATA_MONGODB_HOST: mongodb
+        SPRING_DATA_MONGODB_USERNAME: root
+        SPRING_DATA_MONGODB_PASSWORD: ${{ secrets.PROJETOFIAP_DB_PASSWORD }}
+        SPRING_PROFILES_ACTIVE: mongo
       run: mvn clean verify sonar:sonar
 
     - name: Check for tests failures

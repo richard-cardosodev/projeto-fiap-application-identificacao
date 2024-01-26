@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class ClienteRepositoryGatewayMongo implements IClienteRepositoryAdapterGateway {
+public class MongoClienteRepositoryAdapterGateway implements IClienteRepositoryAdapterGateway {
 
     private MongoClientRepository mongoClientRepository;
 
-    public ClienteRepositoryGatewayMongo(MongoClientRepository mongoClientRepository) {
+    public MongoClienteRepositoryAdapterGateway(MongoClientRepository mongoClientRepository) {
         this.mongoClientRepository = mongoClientRepository;
     }
 
