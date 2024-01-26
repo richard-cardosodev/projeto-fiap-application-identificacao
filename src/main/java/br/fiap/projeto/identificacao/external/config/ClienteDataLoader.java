@@ -3,6 +3,7 @@ package br.fiap.projeto.identificacao.external.config;
 import br.fiap.projeto.identificacao.adapter.gateway.MongoClienteRepositoryAdapterGateway;
 import br.fiap.projeto.identificacao.adapter.gateway.PostgresClienteRepositoryAdapterGateway;
 import br.fiap.projeto.identificacao.entity.Cliente;
+import br.fiap.projeto.identificacao.external.repository.mongo.MongoClienteRepository;
 import br.fiap.projeto.identificacao.external.repository.postgres.PostgresClienteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -17,7 +18,7 @@ import java.util.UUID;
 @Configuration @RequiredArgsConstructor @Slf4j
 public class ClienteDataLoader {
 
-    private final MongoClienteRepositoryAdapterGateway mongoGateway;
+    private final MongoClienteRepository mongoClienteRepository;
 
     private final PostgresClienteRepository postgresClienteRepository;
 
@@ -26,6 +27,7 @@ public class ClienteDataLoader {
     public void init() {
 
         PostgresClienteRepositoryAdapterGateway postgresGateway;
+        MongoClienteRepositoryAdapterGateway mongoGateway;
         List<Cliente> clientes;
 
         clientes = Collections.singletonList(
@@ -33,6 +35,7 @@ public class ClienteDataLoader {
         );
 
         postgresGateway = new PostgresClienteRepositoryAdapterGateway(postgresClienteRepository);
+        mongoGateway = new MongoClienteRepositoryAdapterGateway(mongoClienteRepository);
 
         for (Cliente cliente : clientes) {
             if (!mongoGateway.buscaPorCpf(cliente.getCpf().getNumero()).isPresent()) {

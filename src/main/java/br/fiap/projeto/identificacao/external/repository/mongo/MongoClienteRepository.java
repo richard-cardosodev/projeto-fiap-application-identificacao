@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MongoClientRepository extends MongoRepository<ClienteDocument, String> {
+public interface MongoClienteRepository
+        extends MongoRepository<ClienteDocument, String> {
     List<ClienteDocument> findAllByDataExclusaoIsNull();
     Optional<ClienteDocument> findByCpfAndDataExclusaoIsNull(String cpf);
     Optional<ClienteDocument> findByEmailAndDataExclusaoIsNull(String email);
