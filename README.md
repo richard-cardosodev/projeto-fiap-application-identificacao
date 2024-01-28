@@ -1,4 +1,8 @@
 # Projeto de pós-graduação (Fiap/Alura) do grupo 2023-Q1-64
+
+## Informações gerais
+###
+
 ## Integrantes
 
 - Ademar Terra (RM350011)
