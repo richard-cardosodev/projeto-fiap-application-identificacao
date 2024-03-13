@@ -1,16 +1,5 @@
 package br.fiap.projeto.identificacao;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
 import br.fiap.projeto.identificacao.adapter.controller.ClienteRestAdapterController;
 import br.fiap.projeto.identificacao.adapter.controller.rest.request.ClienteRequestDTO;
 import br.fiap.projeto.identificacao.adapter.controller.rest.response.ClienteResponseDTO;
@@ -20,6 +9,15 @@ import br.fiap.projeto.identificacao.usecase.exception.EntradaInvalidaException;
 import br.fiap.projeto.identificacao.usecase.port.IGestaoClienteUsecase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ClienteRestAdapterControllerTest {
 
@@ -35,9 +33,9 @@ class ClienteRestAdapterControllerTest {
     @Test
     void insereClienteComSucesso() throws EntradaInvalidaException, EntidadeNaoEncontradaException {
         // Simular a chamada ao caso de uso que insere um cliente
-        when(gestaoClienteUsecase.insere(any(Cliente.class))).thenReturn(new Cliente(UUID.randomUUID().toString(), "Nome", "51757125868", "email@example.com"));
+        when(gestaoClienteUsecase.insere(any(Cliente.class))).thenReturn(new Cliente(UUID.randomUUID().toString(), "Nome", "51757125868", "email@example.com", "11999998888"));
 
-        ClienteRequestDTO clienteRequestDTO = new ClienteRequestDTO("Nome", "51757125868", "email@example.com");
+        ClienteRequestDTO clienteRequestDTO = new ClienteRequestDTO("Nome", "51757125868", "email@example.com", "11999998888");
         ClienteResponseDTO clienteResponseDTO = clienteRestAdapterController.insere(clienteRequestDTO);
 
         assertNotNull(clienteResponseDTO);
@@ -49,9 +47,9 @@ class ClienteRestAdapterControllerTest {
     EntidadeNaoEncontradaException {
     // Simular a chamada ao caso de uso que atualiza um cliente
     when(gestaoClienteUsecase.edita(any(Cliente.class))).thenReturn(new
-    Cliente("codigo", "Nome Atualizado", "51757125868", "email@example.com"));
+    Cliente("codigo", "Nome Atualizado", "51757125868", "email@example.com", "11999998888"));
 
-    ClienteRequestDTO clienteRequestDTO = new ClienteRequestDTO("Nome Atualizado", "51757125868", "email@example.com");
+    ClienteRequestDTO clienteRequestDTO = new ClienteRequestDTO("Nome Atualizado", "51757125868", "email@example.com", "11999998888");
     ClienteResponseDTO clienteResponseDTO =
     clienteRestAdapterController.atualiza("codigo", clienteRequestDTO);
 
@@ -73,7 +71,7 @@ class ClienteRestAdapterControllerTest {
     EntidadeNaoEncontradaException {
     // Simular a chamada ao caso de uso que busca um cliente
     when(gestaoClienteUsecase.busca(any(String.class))).thenReturn(new
-    Cliente("codigo", "Nome", "51757125868", "email@example.com"));
+    Cliente("codigo", "Nome", "51757125868", "email@example.com", "11999998888"));
 
     ClienteResponseDTO clienteResponseDTO =
     clienteRestAdapterController.busca("codigo");
@@ -86,8 +84,8 @@ class ClienteRestAdapterControllerTest {
     void buscaTodosClientesComSucesso() throws EntradaInvalidaException {
 
         // Massa de clientes
-        List<Cliente> clientes = Arrays.asList(new Cliente("codigo1", "Nome1", "51757125868", "email1@example.com"),
-                new Cliente("codigo2", "Nome2", "21618131885", "email2@example.com"));
+        List<Cliente> clientes = Arrays.asList(new Cliente("codigo1", "Nome1", "51757125868", "email1@example.com", "11999998888"),
+                new Cliente("codigo2", "Nome2", "21618131885", "email2@example.com", "11777778888"));
         // Simular a chamada ao caso de uso que busca todos os clientes
         when(gestaoClienteUsecase.buscaTodos())
                 .thenReturn(clientes);
@@ -102,7 +100,7 @@ class ClienteRestAdapterControllerTest {
     void buscaPorCpfComSucesso() throws EntidadeNaoEncontradaException, EntradaInvalidaException {
     // Simular a chamada ao caso de uso que busca um cliente por CPF
     when(gestaoClienteUsecase.buscaPorCpf(any(String.class))).thenReturn(new
-    Cliente("codigo", "Nome", "51757125868", "email@example.com"));
+    Cliente("codigo", "Nome", "51757125868", "email@example.com", "11999998888"));
 
     ClienteResponseDTO clienteResponseDTO =
     clienteRestAdapterController.buscaPorCpf("51757125868");

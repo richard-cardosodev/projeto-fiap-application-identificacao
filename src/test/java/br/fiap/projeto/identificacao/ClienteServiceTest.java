@@ -33,9 +33,9 @@ class ClienteServiceTest {
     @Test
     void insereClienteComCpfEDuplicado() throws EntradaInvalidaException {
       
-        when(clienteRepositoryAdapterGateway.buscaPorCpf(anyString())).thenReturn(Optional.of(new Cliente("codigo1", "Nome", "21618131885", "email@email.com.br")));
+        when(clienteRepositoryAdapterGateway.buscaPorCpf(anyString())).thenReturn(Optional.of(new Cliente("codigo1", "Nome", "21618131885", "email@email.com.br", "11999998888")));
 
-        Cliente clienteParaInserir = new Cliente("codigo2", "Novo Nome", "51757125868", "novoemail@email.com.br");
+        Cliente clienteParaInserir = new Cliente("codigo2", "Novo Nome", "51757125868", "novoemail@email.com.br", "11999998888");
 
         assertThrows(EntradaInvalidaException.class, () -> {
             gestaoClienteUseCase.insere(clienteParaInserir);
@@ -46,9 +46,9 @@ class ClienteServiceTest {
     void insereClienteComEmailDuplicado() throws EntradaInvalidaException {
         // Simular o cenário onde o cliente com o mesmo e-mail já existe
         when(clienteRepositoryAdapterGateway.buscaPorCpf(anyString())).thenReturn(Optional.empty());
-        when(clienteRepositoryAdapterGateway.buscaPorEmail(anyString())).thenReturn(Optional.of(new Cliente("codigo1", "Nome", "21618131885", "email@email.com")));
+        when(clienteRepositoryAdapterGateway.buscaPorEmail(anyString())).thenReturn(Optional.of(new Cliente("codigo1", "Nome", "21618131885", "email@email.com", "11999998888")));
 
-        Cliente clienteParaInserir = new Cliente("codigo2", "Novo Nome", "51757125868", "novoemail@email.com.br");
+        Cliente clienteParaInserir = new Cliente("codigo2", "Novo Nome", "51757125868", "novoemail@email.com.br", "11999998888");
 
         assertThrows(EntradaInvalidaException.class, () -> {
             gestaoClienteUseCase.insere(clienteParaInserir);
@@ -60,9 +60,9 @@ class ClienteServiceTest {
         // Simular o cenário onde o cliente não existe previamente
         when(clienteRepositoryAdapterGateway.buscaPorCpf(anyString())).thenReturn(Optional.empty());
         when(clienteRepositoryAdapterGateway.buscaPorEmail(anyString())).thenReturn(Optional.empty());
-        when(clienteRepositoryAdapterGateway.insere(any(Cliente.class))).thenReturn(new Cliente("codigo2", "Novo Nome", "51757125868", "novoemail@email.com.br"));
+        when(clienteRepositoryAdapterGateway.insere(any(Cliente.class))).thenReturn(new Cliente("codigo2", "Novo Nome", "51757125868", "novoemail@email.com.br", "11999998888"));
 
-        Cliente clienteParaInserir = new Cliente("codigo2", "Novo Nome", "51757125868", "novoemail@email.com.br");
+        Cliente clienteParaInserir = new Cliente("codigo2", "Novo Nome", "51757125868", "novoemail@email.com.br", "11999998888");
 
         Cliente clienteInserido = gestaoClienteUseCase.insere(clienteParaInserir);
         assertNotNull(clienteInserido);
@@ -73,7 +73,7 @@ class ClienteServiceTest {
         // Simular o cenário onde o código do cliente está ausente
 
         assertThrows(EntradaInvalidaException.class, () -> {
-            new Cliente(null, "Novo Nome", "51757125868", "novoemail@email.com.br");
+            new Cliente(null, "Novo Nome", "51757125868", "novoemail@email.com.br", "11999998888");
         });
     }
 
@@ -82,7 +82,7 @@ class ClienteServiceTest {
         // Simular o cenário onde o cliente não existe
         when(clienteRepositoryAdapterGateway.busca(anyString())).thenReturn(Optional.empty());
 
-        Cliente clienteParaEditar = new Cliente("1234", "Novo Nome", "51757125868", "novoemail@email.com.br");
+        Cliente clienteParaEditar = new Cliente("1234", "Novo Nome", "51757125868", "novoemail@email.com.br", "11999998888");
 
         assertThrows(EntidadeNaoEncontradaException.class, () -> {
             gestaoClienteUseCase.edita(clienteParaEditar);
@@ -92,10 +92,10 @@ class ClienteServiceTest {
     @Test
     void editaClienteComSucesso() throws EntradaInvalidaException, EntidadeNaoEncontradaException {
         // Simular o cenário onde o cliente existe
-        when(clienteRepositoryAdapterGateway.busca(anyString())).thenReturn(Optional.of(new Cliente("123", "Novo Nome", "51757125868", "novoemail@email.com.br")));
-        when(clienteRepositoryAdapterGateway.atualiza(any(Cliente.class))).thenReturn(new Cliente("123", "Novo Nome2", "51757125868", "novoemail@email.com.br"));
+        when(clienteRepositoryAdapterGateway.busca(anyString())).thenReturn(Optional.of(new Cliente("123", "Novo Nome", "51757125868", "novoemail@email.com.br", "11999998888")));
+        when(clienteRepositoryAdapterGateway.atualiza(any(Cliente.class))).thenReturn(new Cliente("123", "Novo Nome2", "51757125868", "novoemail@email.com.br", "11999998888"));
 
-        Cliente clienteParaEditar = new Cliente("123", "Novo Nome", "51757125868", "novoemail@email.com.br");
+        Cliente clienteParaEditar = new Cliente("123", "Novo Nome", "51757125868", "novoemail@email.com.br", "11999998888");
 
         Cliente clienteEditado = gestaoClienteUseCase.edita(clienteParaEditar);
         assertEquals("Novo Nome2", clienteEditado.getNome());
@@ -122,7 +122,7 @@ class ClienteServiceTest {
     @Test
     void removeClienteComSucesso() throws EntradaInvalidaException {
         // Simular o cenário onde o cliente existe
-        when(clienteRepositoryAdapterGateway.buscaPorCodigoEDataExclusaoNula(anyString())).thenReturn(Optional.of(new Cliente("123", "Novo Nome", "51757125868", "novoemail@email.com.br")));
+        when(clienteRepositoryAdapterGateway.buscaPorCodigoEDataExclusaoNula(anyString())).thenReturn(Optional.of(new Cliente("123", "Novo Nome", "51757125868", "novoemail@email.com.br", "11999998888")));
 
         assertDoesNotThrow(() -> {
             gestaoClienteUseCase.remove("codigo");
@@ -140,7 +140,11 @@ class ClienteServiceTest {
     @Test
     void buscaClienteInexistente() {
         // Simular o cenário onde o cliente não existe
-        when(clienteRepositoryAdapterGateway.busca(anyString())).thenReturn(Optional.empty());
+        try {
+            when(clienteRepositoryAdapterGateway.busca(anyString())).thenReturn(Optional.empty());
+        } catch (EntradaInvalidaException e) {
+            throw new RuntimeException(e);
+        }
 
         assertThrows(EntidadeNaoEncontradaException.class, () -> {
             gestaoClienteUseCase.busca("codigo");
@@ -150,7 +154,7 @@ class ClienteServiceTest {
     @Test
     void buscaClienteComSucesso() throws EntradaInvalidaException, EntidadeNaoEncontradaException {
         // Simular o cenário onde o cliente existe
-        when(clienteRepositoryAdapterGateway.busca(anyString())).thenReturn(Optional.of(new Cliente("123", "Novo Nome", "51757125868", "novoemail@email.com.br")));
+        when(clienteRepositoryAdapterGateway.busca(anyString())).thenReturn(Optional.of(new Cliente("123", "Novo Nome", "51757125868", "novoemail@email.com.br", "11999998888")));
 
         Cliente cliente = gestaoClienteUseCase.busca("codigo");
         assertNotNull(cliente);

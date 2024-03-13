@@ -27,7 +27,7 @@ public class ClienteRestAdapterController implements IClienteRestAdapterControll
 
     @Override
     public ClienteResponseDTO atualiza(String codigo, ClienteRequestDTO cliente) throws EntidadeNaoEncontradaException, EntradaInvalidaException {
-        Cliente clienteAtualizado = gestaoClienteUsecase.edita(new Cliente(codigo, cliente.getNome(), cliente.getCpf(), cliente.getEmail()));
+        Cliente clienteAtualizado = gestaoClienteUsecase.edita(new Cliente(codigo, cliente.getNome(), cliente.getCpf(), cliente.getEmail(), cliente.getTelefone()));
         return ClienteResponseDTO.fromCliente(clienteAtualizado);
     }
 

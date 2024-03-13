@@ -16,11 +16,13 @@ public class ClienteResponseDTO {
     private String nome;
     private String cpf;
     private String email;
+    private String telefone;
 
-    public ClienteResponseDTO(String nome, String cpf, String email) {
+    public ClienteResponseDTO(String nome, String cpf, String email, String telefone) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
+        this.telefone = telefone;
     }
 
     public static ClienteResponseDTO fromCliente(Cliente cliente) {
@@ -32,7 +34,8 @@ public class ClienteResponseDTO {
                 cliente.getCodigo(),
                 cliente.getNome(),
                 Optional.ofNullable(cliente.getCpf()).map(Cpf::getNumero).orElse(null),
-                Optional.ofNullable(cliente.getEmail()).map(Email::getEndereco).orElse(null)
+                Optional.ofNullable(cliente.getEmail()).map(Email::getEndereco).orElse(null),
+                cliente.getTelefone().getNumero()
         );
     }
 
@@ -50,5 +53,9 @@ public class ClienteResponseDTO {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getTelefone() {
+        return telefone;
     }
 }

@@ -87,6 +87,7 @@ class ClienteIntegrationTest {
                 .nome("Cliente1")
                 .email(EmailUtil.gerarEmail())
                 .cpf(CPFUtil.gerarCPFSoNumeros())
+                .telefone("11999998888")
                 .build();
     }
 
