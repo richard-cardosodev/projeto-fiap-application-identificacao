@@ -2,6 +2,7 @@ package br.fiap.projeto.identificacao.entity;
 
 import br.fiap.projeto.identificacao.entity.vo.Cpf;
 import br.fiap.projeto.identificacao.entity.vo.Email;
+import br.fiap.projeto.identificacao.entity.vo.Telefone;
 import br.fiap.projeto.identificacao.usecase.exception.EntradaInvalidaException;
 
 import java.time.LocalDateTime;
@@ -16,13 +17,15 @@ public class Cliente {
     public static final String EMAIL_DUPLICADO = "Esse e-mail já está cadastrado!";
     public static final String CODIGO_AUSENTE = "Informe o código do cliente!";
     public static final String USUARIO_JA_EXCLUIDO = "Este cliente já está excluido! Não foi possível atualiza-lo.";
-    private final String nome;
-    private final Cpf cpf;
-    private final Email email;
+    public static final String TELEFONE_AUSENTE = "Informe o telefone!";
+    private String nome;
+    private Cpf cpf;
+    private Email email;
+    private Telefone telefone;
     private String codigo;
     private LocalDateTime dataExclusao;
 
-    public Cliente(String codigo, String nome, String cpf, String email) throws EntradaInvalidaException {
+    public Cliente(String codigo, String nome, String cpf, String email, String telefone) throws EntradaInvalidaException {
         this.codigo = codigo;
         this.nome = nome;
         validaCodigo();
@@ -31,34 +34,56 @@ public class Cliente {
         validaNome();
         this.cpf = Cpf.fromString(cpf);
         this.email = Email.fromString(email);
+        this.telefone = Telefone.fromString(telefone);
     }
 
-    public Cliente(String codigo, String nome, String cpf, String email, LocalDateTime dataExclusao) throws EntradaInvalidaException {
+    public Cliente(String codigo, String nome, String cpf, String email, String telefone, LocalDateTime dataExclusao) throws EntradaInvalidaException {
         this.codigo = codigo;
         this.nome = nome;
         validaCodigo();
         validaCpf(cpf);
         validaEmail(email);
         validaNome();
+        validaTelefone(telefone);
         this.cpf = Cpf.fromString(cpf);
         this.email = Email.fromString(email);
+        this.telefone = Telefone.fromString(telefone);
         this.dataExclusao = dataExclusao;
     }
 
-    public Cliente(String nome, String cpf, String email) throws EntradaInvalidaException {
+    public Cliente(String nome, String cpf, String email, String telefone) throws EntradaInvalidaException {
         this.nome = nome;
         validaCpf(cpf);
         validaEmail(email);
         validaNome();
+        validaTelefone(telefone);
         this.cpf = Cpf.fromString(cpf);
         this.email = Email.fromString(email);
+        this.telefone = Telefone.fromString(telefone);
+    }
+
+    public Cliente(String nome, String email, String telefone) throws EntradaInvalidaException {
+        this.nome = nome;
+        validaEmail(email);
+        validaNome();
+        validaTelefone(telefone);
+        this.email = Email.fromString(email);
+        this.telefone = Telefone.fromString(telefone);
     }
 
     public void adicionaDataDeExclusao() throws EntradaInvalidaException {
-        if(this.dataExclusao != null) {
+        if (this.dataExclusao != null) {
             throw new EntradaInvalidaException(USUARIO_JA_EXCLUIDO);
         }
         this.dataExclusao = LocalDateTime.now();
+    }
+
+    public Cliente anonimizarDadosParaExclusao() throws EntradaInvalidaException {
+        nome = "anônimo";
+        cpf = Cpf.fromString("00000000000");
+        email = Email.fromString("anonimo@anonimo.anon");
+        telefone = Telefone.fromString("99999999999");
+        return this;
     }
 
     private void validaCodigo() throws EntradaInvalidaException {
@@ -81,6 +106,13 @@ public class Cliente {
         Email.fromString(email).validar();
     }
 
+    private void validaTelefone(String telefone) throws EntradaInvalidaException {
+        if (telefone == null) {
+            throw new EntradaInvalidaException(TELEFONE_AUSENTE);
+        }
+        Telefone.fromString(telefone);
+    }
+
     private void validaNome() throws EntradaInvalidaException {
         if (nome == null || nome.length() == 0) {
             throw new EntradaInvalidaException(NOME_AUSENTE);
@@ -101,6 +133,10 @@ public class Cliente {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Telefone getTelefone() {
+        return telefone;
     }
 
     public LocalDateTime getDataExclusao() {
