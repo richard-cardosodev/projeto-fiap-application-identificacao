@@ -42,12 +42,6 @@ public class ClienteEntity {
         this(codigo, nome, cpf.getNumero(), email.getEndereco(), telefone.getNumero(), dataExclusao);
     }
 
-    public ClienteEntity(String nome, String email, String telefone) {
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-    }
-
     public static ClienteEntity fromCliente(Cliente cliente) {
         return new ClienteEntity(cliente.getCodigo(), cliente.getNome(), cliente.getCpf(), cliente.getEmail(), cliente.getTelefone(), cliente.getDataExclusao());
     }

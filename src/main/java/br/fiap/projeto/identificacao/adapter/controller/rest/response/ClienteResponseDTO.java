@@ -18,13 +18,6 @@ public class ClienteResponseDTO {
     private String email;
     private String telefone;
 
-    public ClienteResponseDTO(String nome, String cpf, String email, String telefone) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.telefone = telefone;
-    }
-
     public static ClienteResponseDTO fromCliente(Cliente cliente) {
 
         if (cliente == null) {
