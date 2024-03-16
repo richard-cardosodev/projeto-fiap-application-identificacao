@@ -1,13 +1,14 @@
 package br.fiap.projeto.identificacao.usecase.port;
 
 import br.fiap.projeto.identificacao.entity.Cliente;
+import br.fiap.projeto.identificacao.usecase.exception.EntradaInvalidaException;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IClienteRepositoryAdapterGateway {
 
-    Optional<Cliente> busca(String codigo);
+    Optional<Cliente> busca(String codigo) throws EntradaInvalidaException;
 
     List<Cliente> buscaTodos();
 

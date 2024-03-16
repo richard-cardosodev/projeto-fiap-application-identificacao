@@ -14,5 +14,6 @@ public class ClienteRequestDTO {
     private String nome;
     private String cpf;
     private String email;
+    private String telefone;
 
 }

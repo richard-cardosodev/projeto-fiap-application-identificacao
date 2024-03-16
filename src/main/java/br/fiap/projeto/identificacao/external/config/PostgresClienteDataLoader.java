@@ -20,7 +20,7 @@ public class PostgresClienteDataLoader {
     @SneakyThrows
     public void init() {
         List<Cliente> clientes = Collections.singletonList(
-                new Cliente(UUID.randomUUID().toString(), "Cliente1", "01234567890", "cliente1@test.com")
+                new Cliente(UUID.randomUUID().toString(), "Cliente1", "01234567890", "cliente1@test.com", "11999998888")
         );
         clientes.forEach(clienteRepository::insere);
     }

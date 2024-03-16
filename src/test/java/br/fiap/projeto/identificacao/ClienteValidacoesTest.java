@@ -18,7 +18,7 @@ class ClienteValidacoesTest {
 
         Assertions.assertThrows(
                 EntradaInvalidaException.class,
-                () -> new Cliente(UUID.randomUUID().toString(), "nome1", "123", "teste@teste.com"),
+                () -> new Cliente(UUID.randomUUID().toString(), "nome1", "123", "teste@teste.com", "11999998888"),
                 Cpf.CPF_INVALIDO);
     }
 
@@ -27,7 +27,7 @@ class ClienteValidacoesTest {
 
         assertThrows(
                 EntradaInvalidaException.class,
-                () -> new Cliente(UUID.randomUUID().toString(), "nome1", "01234567890", "teste"),
+                () -> new Cliente(UUID.randomUUID().toString(), "nome1", "01234567890", "teste", "11999998888"),
                 Email.EMAIL_INVALIDO);
     }
 
@@ -36,7 +36,7 @@ class ClienteValidacoesTest {
 
         assertThrows(
                 EntradaInvalidaException.class,
-                () -> new Cliente(null, "nome1", "01234567890", "teste@teste.com"),
+                () -> new Cliente(null, "nome1", "01234567890", "teste@teste.com", "11999998888"),
                 Cliente.CODIGO_AUSENTE);
     }
 
@@ -45,7 +45,7 @@ class ClienteValidacoesTest {
 
         assertThrows(
                 EntradaInvalidaException.class,
-                () -> new Cliente(UUID.randomUUID().toString(), null, "01234567890", "teste@teste.com"),
+                () -> new Cliente(UUID.randomUUID().toString(), null, "01234567890", "teste@teste.com", "11999998888"),
                 Cliente.CPF_AUSENTE);
     }
 
@@ -54,7 +54,7 @@ class ClienteValidacoesTest {
 
         assertThrows(
                 EntradaInvalidaException.class,
-                () -> new Cliente(UUID.randomUUID().toString(), "nome1", "01234567890", null),
+                () -> new Cliente(UUID.randomUUID().toString(), "nome1", "01234567890", null, "11999998888"),
                 Cliente.EMAIL_AUSENTE);
     }
 
@@ -63,7 +63,7 @@ class ClienteValidacoesTest {
 
         assertThrows(
                 EntradaInvalidaException.class,
-                () -> new Cliente(UUID.randomUUID().toString(), "nome1", null, "teste@teste.com"),
+                () -> new Cliente(UUID.randomUUID().toString(), "nome1", null, "teste@teste.com", "11999998888"),
                 Cliente.CPF_AUSENTE);
     }
 }

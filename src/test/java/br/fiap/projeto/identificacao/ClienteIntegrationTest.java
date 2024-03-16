@@ -1,6 +1,7 @@
 package br.fiap.projeto.identificacao;
 
 import br.fiap.projeto.identificacao.adapter.controller.rest.request.ClienteRequestDTO;
+import br.fiap.projeto.identificacao.adapter.controller.rest.request.ExcluiClienteRequestDTO;
 import br.fiap.projeto.util.CPFUtil;
 import br.fiap.projeto.util.EmailUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,12 +23,14 @@ class ClienteIntegrationTest {
     @Autowired
     private MockMvc mvc;
 
+    private ClienteRequestDTO clienteRequestDTO;
     @Test
     void testeInserir() throws Exception {
 
+        clienteRequestDTO = geraClienteRequestDTO();
         mvc.perform(MockMvcRequestBuilders
                         .post("/clientes")
-                        .content(asJsonString(geraClienteRequestDTO()))
+                        .content(asJsonString(clienteRequestDTO))
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -82,11 +85,26 @@ class ClienteIntegrationTest {
         ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.NOT_FOUND.value()));
     }
 
+    @Test
+    void testExcluirLgpd() throws Exception {
+        testeInserir();
+        ExcluiClienteRequestDTO dto = new ExcluiClienteRequestDTO(clienteRequestDTO.getNome(),clienteRequestDTO.getEmail(),clienteRequestDTO.getTelefone());
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/lgpd/excluir")
+                        .content(asJsonString(dto))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().is(HttpStatus.NO_CONTENT.value()));
+    }
+
     private ClienteRequestDTO geraClienteRequestDTO() {
         return ClienteRequestDTO.builder()
                 .nome("Cliente1")
                 .email(EmailUtil.gerarEmail())
                 .cpf(CPFUtil.gerarCPFSoNumeros())
+                .telefone("11999998888")
                 .build();
     }
 

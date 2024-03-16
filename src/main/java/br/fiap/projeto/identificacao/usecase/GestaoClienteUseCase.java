@@ -33,7 +33,7 @@ public class GestaoClienteUseCase implements IGestaoClienteUsecase {
             throw new EntradaInvalidaException(EMAIL_DUPLICADO);
         }
 
-        Cliente novoCliente = new Cliente(UUID.randomUUID().toString(), clienteRef.getNome(), clienteRef.getCpf().getNumero(), clienteRef.getEmail().getEndereco());
+        Cliente novoCliente = new Cliente(UUID.randomUUID().toString(), clienteRef.getNome(), clienteRef.getCpf().getNumero(), clienteRef.getEmail().getEndereco(), clienteRef.getTelefone().getNumero());
         return clienteRepositoryAdapterGateway.insere(novoCliente);
     }
 
@@ -48,7 +48,7 @@ public class GestaoClienteUseCase implements IGestaoClienteUsecase {
             throw new EntidadeNaoEncontradaException(ENTIDADE_NAO_ENCONTRADA);
         }
 
-        Cliente clienteAAtualizar = new Cliente(clienteExistente.getCodigo(), clienteRef.getNome(), clienteRef.getCpf().getNumero(), clienteRef.getEmail().getEndereco());
+        Cliente clienteAAtualizar = new Cliente(clienteExistente.getCodigo(), clienteRef.getNome(), clienteRef.getCpf().getNumero(), clienteRef.getEmail().getEndereco(), clienteRef.getTelefone().getNumero());
         return clienteRepositoryAdapterGateway.atualiza(clienteAAtualizar);
     }
 
